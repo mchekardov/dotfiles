@@ -1,0 +1,31 @@
+return {
+  dap = {
+    breakpoint = "",
+    conditional_breakpoint = "",
+    rejected_breakpoint = "",
+    log_point = "",
+  },
+  diagnostics = {
+    error = "",
+    warning = "",
+    info = "",
+    hint = "",
+  },
+  ui = {
+    chevron_down = "",
+    chevron_left = "",
+    chevron_right = "",
+    chevron_up = "",
+    arrow_down = "",
+    arrow_left = "",
+    arrow_right = "",
+    arrow_up = "",
+    arrow_circle_up = "",
+    arrow_circle_left = "",
+    arrow_circle_right = "",
+    arrow_circle_down = "",
+    center_dot = "·",
+    separator_right = ">",
+    separator_left = "<",
+  },
+}

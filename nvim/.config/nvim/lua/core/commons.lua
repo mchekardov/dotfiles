@@ -1,0 +1,20 @@
+return {
+  special_filetypes = {
+    "",
+    "alpha",
+    "checkhealth",
+    "dap-repl",
+    "dap-terminal",
+    "TelescopePrompt",
+    "DressingSelect",
+    "help",
+    "lazy",
+    "lspinfo",
+    "man",
+    "notify",
+    "NvimTree",
+    "Outline",
+    "qf",
+    "toggleterm",
+  },
+}
