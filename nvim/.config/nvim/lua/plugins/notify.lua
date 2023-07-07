@@ -1,11 +1,10 @@
 local function config()
-  local opts = {
-    render = "minimal",
-    stages = "fade",
-  }
-
   local notify = require("notify")
-  notify.setup(opts)
+  notify.setup({
+    stages = "fade",
+    render = "minimal",
+    top_down = false,
+  })
   vim.notify = notify
 end
 
