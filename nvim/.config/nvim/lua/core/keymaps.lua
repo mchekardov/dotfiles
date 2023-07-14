@@ -1,22 +1,17 @@
-local function apply_mappings_rec(mode, mappings, prefix)
-  assert(type(mappings) == "table")
-  if mappings[1] == nil then
-    for key, value in pairs(mappings) do
-      apply_mappings_rec(mode, value, prefix .. key)
-    end
-  else
-    assert(type(mappings[1]) == "string" or type(mappings[1]) == "function")
-    assert(type(mappings[2]) == "table" or type(mappings[2]) == "nil")
-    vim.keymap.set(mode, prefix, mappings[1], mappings[2])
-  end
-end
+local M = {}
 
-local function apply_mappings(mode, mappings)
-  assert(type(mode) == "string" or type(mode) == "table")
-  apply_mappings_rec(mode, mappings, "")
-end
+---@alias Mode string|string[]
 
-local leader_mappings = {
+---@class KeymapsRhs
+---@field [1] string|function
+---@field [2] table?
+
+---@alias KeymapsTable
+---| table<string, KeymapsTable>
+---| KeymapsRhs
+
+---@type KeymapsTable
+local default_leader_keymaps = {
   b = {
     -- Buffer actions
     c = { "<Cmd>Bdelete<CR>", { desc = "Close current buffer" } },
@@ -100,27 +95,32 @@ local leader_mappings = {
   },
 }
 
-local mappings = {
-  i = {
+---@type table<Mode, KeymapsTable>
+local default_keymaps = {
+  [{ "i", "n", "v", "x", "t", "c" }] = {
     ["<MiddleMouse>"] = { "<Nop>" },
     ["<2-MiddleMouse>"] = { "<Nop>" },
     ["<3-MiddleMouse>"] = { "<Nop>" },
     ["<4-MiddleMouse>"] = { "<Nop>" },
+  },
+  [{ "n", "v", "x" }] = {
+    ["H"] = { "^" },
+    ["L"] = { "$" },
+  },
+  [{ "v", "x" }] = {
+    ["<"] = { "<gv", { desc = "Unindent selected lines" } },
+    [">"] = { ">gv", { desc = "Indent selected lines" } },
+  },
+  i = {
     ["<C-h>"] = { "<C-w>" }, -- <C-BS>
     ["<A-j>"] = { "<Esc><Cmd>m .+1<CR>==gi", { desc = "Move line down" } },
     ["<A-k>"] = { "<Esc><Cmd>m .-2<CR>==gi", { desc = "Move line up" } },
   },
   n = {
-    ["<MiddleMouse>"] = { "<Nop>" },
-    ["<2-MiddleMouse>"] = { "<Nop>" },
-    ["<3-MiddleMouse>"] = { "<Nop>" },
-    ["<4-MiddleMouse>"] = { "<Nop>" },
-    ["H"] = { "^" },
-    ["L"] = { "$" },
     ["<A-j>"] = { "<Cmd>m .+1<CR>==", { desc = "Move line down" } },
     ["<A-k>"] = { "<Cmd>m .-2<CR>==", { desc = "Move line up" } },
     ["<Esc>"] = { "<Cmd>nohl<CR>", { desc = "Clear search highlight" } },
-    ["<Leader>"] = leader_mappings,
+    ["<Leader>"] = default_leader_keymaps,
     ["<Tab>"] = {
       "<Cmd>BufferLineCycleNext<CR>",
       { desc = "Bufferline: Goto next buffer" },
@@ -175,23 +175,17 @@ local mappings = {
       { desc = "Dap: Terminate" },
     },
   },
+  v = {
+    ["<A-j>"] = { ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" } },
+    ["<A-k>"] = { ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" } },
+  },
+  x = {
+    ["<A-j>"] = { ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" } },
+    ["<A-k>"] = { ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" } },
+  },
   t = {
     -- <C-BS>
     ["<C-h>"] = { "<C-w>" },
-  },
-  v = {
-    ["H"] = { "^" },
-    ["L"] = { "$" },
-    ["<A-j>"] = { ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" } },
-    ["<A-k>"] = { ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" } },
-    ["<"] = { "<gv", { desc = "Unindent selected lines" } },
-    [">"] = { ">gv", { desc = "Indent selected lines" } },
-  },
-  x = {
-    ["H"] = { "^" },
-    ["L"] = { "$" },
-    ["<A-j>"] = { ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" } },
-    ["<A-k>"] = { ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" } },
   },
   c = {
     -- <C-BS>
@@ -204,7 +198,33 @@ local mappings = {
   },
 }
 
-
-for mode, mode_mappings in pairs(mappings) do
-  apply_mappings(mode, mode_mappings)
+---@param mode Mode
+---@param keymaps KeymapsTable
+---@param prefix string?
+function M.load_mode(mode, keymaps, prefix)
+  prefix = prefix or ""
+  if keymaps[1] ~= nil then
+    vim.keymap.set(mode, prefix, keymaps[1], keymaps[2])
+  else
+    for lhs, rhs in pairs(keymaps) do
+      M.load_mode(mode, rhs, prefix .. lhs)
+    end
+  end
 end
+
+---@param mode_to_keymaps table<Mode, KeymapsTable>
+function M.load(mode_to_keymaps)
+  for mode, keymaps in pairs(mode_to_keymaps) do
+    M.load_mode(mode, keymaps)
+  end
+end
+
+function M.get_defaults()
+  return default_keymaps
+end
+
+function M.load_defaults()
+  M.load(M.get_defaults())
+end
+
+return M
