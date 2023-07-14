@@ -1,6 +1,6 @@
 local M = {}
 
----@alias Mode string|string[]
+---@alias KeymapsMode string|string[]
 
 ---@class KeymapsRhs
 ---@field [1] string|function
@@ -95,7 +95,7 @@ local default_leader_keymaps = {
   },
 }
 
----@type table<Mode, KeymapsTable>
+---@type table<KeymapsMode, KeymapsTable>
 local default_keymaps = {
   [{ "i", "n", "v", "x", "t", "c" }] = {
     ["<MiddleMouse>"] = { "<Nop>" },
@@ -186,7 +186,7 @@ local default_keymaps = {
   },
 }
 
----@param mode Mode
+---@param mode KeymapsMode
 ---@param keymaps KeymapsTable
 ---@param prefix string?
 function M.load_mode(mode, keymaps, prefix)
@@ -200,7 +200,7 @@ function M.load_mode(mode, keymaps, prefix)
   end
 end
 
----@param mode_to_keymaps table<Mode, KeymapsTable>
+---@param mode_to_keymaps table<KeymapsMode, KeymapsTable>
 function M.load(mode_to_keymaps)
   for mode, keymaps in pairs(mode_to_keymaps) do
     M.load_mode(mode, keymaps)
