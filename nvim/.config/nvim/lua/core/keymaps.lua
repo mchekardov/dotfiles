@@ -113,12 +113,8 @@ local default_keymaps = {
   },
   i = {
     ["<C-h>"] = { "<C-w>" }, -- <C-BS>
-    ["<A-j>"] = { "<Esc><Cmd>m .+1<CR>==gi", { desc = "Move line down" } },
-    ["<A-k>"] = { "<Esc><Cmd>m .-2<CR>==gi", { desc = "Move line up" } },
   },
   n = {
-    ["<A-j>"] = { "<Cmd>m .+1<CR>==", { desc = "Move line down" } },
-    ["<A-k>"] = { "<Cmd>m .-2<CR>==", { desc = "Move line up" } },
     ["<Esc>"] = { "<Cmd>nohl<CR>", { desc = "Clear search highlight" } },
     ["<Leader>"] = default_leader_keymaps,
     ["<Tab>"] = {
@@ -174,14 +170,6 @@ local default_keymaps = {
       "<Cmd>lua require'dap'.terminate()<CR>",
       { desc = "Dap: Terminate" },
     },
-  },
-  v = {
-    ["<A-j>"] = { ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" } },
-    ["<A-k>"] = { ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" } },
-  },
-  x = {
-    ["<A-j>"] = { ":m '>+1<CR>gv=gv", { desc = "Move selected lines up" } },
-    ["<A-k>"] = { ":m '<-2<CR>gv=gv", { desc = "Move selected lines down" } },
   },
   t = {
     -- <C-BS>
