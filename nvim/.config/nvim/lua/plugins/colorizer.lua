@@ -1,6 +1,12 @@
+local opts = {
+  user_default_options = {
+    names = false,
+  },
+}
+
 return {
   {
-    "norcalli/nvim-colorizer.lua",
-    opts = {},
+    "NvChad/nvim-colorizer.lua",
+    opts = opts,
   },
 }
