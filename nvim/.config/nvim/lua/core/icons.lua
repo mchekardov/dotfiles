@@ -12,6 +12,16 @@ return {
     hint = "",
   },
   ui = {
+    close = "",
+    modified = "●",
+    fold_closed = "",
+    fold_open = "",
+    tab_separator_left = "",
+    tab_separator_right = "",
+    segment_separator_left = "",
+    segment_separator_right = "",
+  },
+  misc = {
     chevron_down = "",
     chevron_left = "",
     chevron_right = "",
@@ -25,7 +35,9 @@ return {
     arrow_circle_right = "",
     arrow_circle_down = "",
     center_dot = "·",
-    separator_right = ">",
-    separator_left = "<",
+    slant_top_right = "",
+    slant_bottom_right = "",
+    slant_bottom_left = "",
+    slant_top_left = "",
   },
 }

@@ -50,7 +50,7 @@ local function config()
           right = 0,
         },
       },
-      { get_filepath, separator = icons.ui.separator_right },
+      { get_filepath, separator = icons.ui.segment_separator_left },
       get_gps,
     },
   }

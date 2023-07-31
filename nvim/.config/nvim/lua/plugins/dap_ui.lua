@@ -10,9 +10,9 @@ local function config()
       border = "rounded",
     },
     icons = {
-      expanded = icons.ui.chevron_down,
-      collapsed = icons.ui.chevron_right,
-      current_frame = icons.ui.chevron_right,
+      expanded = icons.ui.fold_open,
+      collapsed = icons.ui.fold_closed,
+      current_frame = icons.misc.arrow_right,
     },
     layouts = {
       {

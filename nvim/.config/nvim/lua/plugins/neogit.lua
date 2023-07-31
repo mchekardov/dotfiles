@@ -5,9 +5,9 @@ local function config()
     use_magit_keybindings = true,
     kind = "split",
     signs = {
-      section = { icons.ui.chevron_right, icons.ui.chevron_down },
-      item = { icons.ui.chevron_right, icons.ui.chevron_down },
-      hunk = { icons.ui.chevron_right, icons.ui.chevron_down },
+      section = { icons.ui.fold_open, icons.ui.fold_closed },
+      item = { icons.ui.fold_open, icons.ui.fold_closed },
+      hunk = { icons.ui.fold_open, icons.ui.fold_closed },
     },
     integrations = {
       diffview = true,

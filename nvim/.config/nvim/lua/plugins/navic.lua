@@ -3,7 +3,7 @@ local function config()
   local icons = require("core.icons")
 
   navic.setup({
-    separator = " " .. icons.ui.separator_right .. " ",
+    separator = " " .. icons.ui.segment_separator_left .. " ",
   })
 
   local function on_attach(args)
