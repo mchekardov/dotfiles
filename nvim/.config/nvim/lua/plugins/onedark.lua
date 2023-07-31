@@ -17,6 +17,9 @@ local function config()
       DapBreakpoint = { fg = "$dark_red" },
       DapLogPoint = { fg = "$yellow" },
       DapStopped = { fg = "$fg", bg = "$dark_cyan" },
+      TabLine = { fg = "$grey", bg = "$bg_d" },
+      TabLineFill = { bg = "$black" },
+      TabLineSel = { fg = "$fg", bg = "$bg0", fmt = "bold" },
     },
   })
   onedark.load()

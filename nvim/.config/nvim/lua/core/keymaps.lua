@@ -69,10 +69,22 @@ local default_leader_keymaps = {
   },
   N = {
     "<Cmd>Telescope notify<CR>",
-    { desc = "Notify: Open notifications history in telescope" },
+    { desc = "Notify: Open notifications history" },
   },
   p = { "<Cmd>Lazy<CR>", { desc = "Lazy: Open plugin manager panel" } },
-  q = { "<Cmd>cwindow<CR>", { desc = "Open quickfixlist" } },
+  q = { "<Cmd>quitall<CR>", { desc = "Quit" } },
+  r = {
+    -- Return to / Reopen / Resume
+    t = {
+      "<Cmd>Telescope resume<CR>",
+      { desc = "Telescope: Return to the previous picker" },
+    },
+    T = {
+      "<Cmd>Telescope pickers<CR>",
+      { desc = "Telescope: Open Picker history" },
+    },
+    q = { "<Cmd>cwindow<CR>", { desc = "Return to quickfixlist" } },
+  },
   s = {
     -- Session actions
     c = {
@@ -87,6 +99,13 @@ local default_leader_keymaps = {
       "<Cmd>SessionManager load_session<CR>",
       { desc = "SessionManager: Load a session" },
     },
+  },
+  t = {
+    -- Tabs
+    c = { "<Cmd>tabclose<CR>", { desc = "Close current tab" } },
+    m = { ":tabmove ", { desc = "Move current tab" } },
+    n = { "<Cmd>tabnew<CR>", { desc = "Open new tab" } },
+    r = { ":TabRename", { desc = "Tabby: Rename current tab" } },
   },
   u = { "<Cmd>Telescope undo<CR>", { desc = "Undotree: Open undo tree" } },
   z = {
@@ -118,20 +137,20 @@ local default_keymaps = {
     ["<Esc>"] = { "<Cmd>nohl<CR>", { desc = "Clear search highlight" } },
     ["<Leader>"] = default_leader_keymaps,
     ["<Tab>"] = {
-      "<Cmd>BufferLineCycleNext<CR>",
-      { desc = "Bufferline: Goto next buffer" },
+      "gt",
+      { desc = "Go to next tab" },
     },
     ["<S-Tab>"] = {
-      "<Cmd>BufferLineCyclePrev<CR>",
-      { desc = "Bufferline: Goto previous buffer" },
+      "gT",
+      { desc = "Go to previous tab" },
     },
     ["<C-Tab>"] = {
-      "<Cmd>BufferLineMoveNext<CR>",
-      { desc = "Bufferline: Move buffer forward" },
+      "<Cmd>+tabmove<CR>",
+      { desc = "Move tab forward" },
     },
     ["<C-S-Tab>"] = {
-      "<Cmd>BufferLineMovePrev<CR>",
-      { desc = "Bufferline: Move buffer backward" },
+      "<Cmd>-tabmove<CR>",
+      { desc = "Move tab backward" },
     },
     ["<F7>"] = {
       "<Cmd>lua require'dap'.step_into()<CR>",
