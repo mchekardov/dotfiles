@@ -74,7 +74,6 @@ local function config()
   })
 
   telescope.load_extension("fzf")
-  telescope.load_extension("file_browser")
   telescope.load_extension("undo")
   telescope.load_extension("notify")
 end
@@ -84,7 +83,6 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-fzf-native.nvim",
-      "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-symbols.nvim",
       "debugloop/telescope-undo.nvim",
       "rcarriga/nvim-notify",
@@ -95,7 +93,6 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
   },
-  { "nvim-telescope/telescope-file-browser.nvim" },
   { "nvim-telescope/telescope-symbols.nvim" },
   { "debugloop/telescope-undo.nvim" },
 }
